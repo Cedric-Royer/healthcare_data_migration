@@ -6,7 +6,6 @@ Ce projet contient un script Python `import_to_mongodb.py` permettant de migrer 
 
 Le script :
 - lit le CSV avec pandas,
-- nettoie les doublons,
 - convertit les colonnes de dates au bon format,
 - insère les données dans MongoDB,
 - crée des index pertinents pour optimiser les requêtes.
@@ -29,7 +28,10 @@ cd healthcare_data_migration
 
 - `import_to_mongodb.py` : script Python de migration CSV → MongoDB
 - `data/healthcare_dataset.csv` : fichier CSV source inclus
+- `test_migration` : comparaison des données CSV / Mongo AVEC migration de données
+- `test_data_validation` : comparaison des données CSV / Mongo SANS migration de données
 - `requirements.txt` : dépendances Python à installer
+
 
 ## Utilisation
 
@@ -37,4 +39,8 @@ cd healthcare_data_migration
 2. Lancer le script d’import :
 ```sh
 python import_to_mongodb.py
+```
+3. Vérifier les données importées dans MongoDB :
+```sh
+pytest -v test_data_validation.py
 ```
