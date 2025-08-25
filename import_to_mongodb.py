@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from pymongo import MongoClient
 
@@ -57,10 +58,10 @@ def import_csv_to_mongodb(csv_path, mongodb_uri, db_name, collection_name):
     print("Migration terminée.")
 
 if __name__ == "__main__":
-    # Modifier ces paramètres selon votre environnement local
-    chemin_csv = "C:\\Users\\cedri\\Documents\\healthcare_dataset.csv"
-    uri_mongodb = "mongodb://localhost:27017/"
-    nom_db = "data_solu_tech"
-    nom_collection = "healthcare_dataset"
+    # Paramètres lus dans l'environnement, avec valeurs par défaut adaptées à Docker
+    chemin_csv = os.environ.get("CHEMIN_CSV", "data/healthcare_dataset.csv")
+    uri_mongodb = os.environ.get("MONGODB_URI", "mongodb://localhost:27017/")
+    nom_db = os.environ.get("DB_NAME", "data_solu_tech")
+    nom_collection = os.environ.get("COLLECTION_NAME", "healthcare_dataset")
 
     import_csv_to_mongodb(chemin_csv, uri_mongodb, nom_db, nom_collection)
