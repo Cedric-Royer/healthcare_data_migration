@@ -28,8 +28,7 @@ cd healthcare_data_migration
 
 - `import_to_mongodb.py` : script Python de migration CSV → MongoDB
 - `data/healthcare_dataset.csv` : fichier CSV source inclus
-- `test_migration` : comparaison des données CSV / Mongo AVEC migration de données
-- `test_data_validation` : comparaison des données CSV / Mongo SANS migration de données
+- `test_data_validation` : comparaison des données CSV / Mongo sans migration de données
 - `requirements.txt` : dépendances Python à installer
 
 
