@@ -1,0 +1,34 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_DATABASE=data_solu_tech
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - mongo_config:/data/configdb
+
+  migration:
+    build: .
+    container_name: migration
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/
+      - DB_NAME=data_solu_tech
+      - COLLECTION_NAME=healthcare_dataset
+      - CHEMIN_CSV=/data/healthcare_dataset.csv
+    volumes:
+      - ./import_to_mongodb.py:/app/import_to_mongodb.py
+      - ./requirements.txt:/app/requirements.txt
+      - csv_data:/data
+    working_dir: /app
+    command: >
+      sh -c "pip install -r requirements.txt && python import_to_mongodb.py"
+
+volumes:
+  mongo_data:
+  mongo_config:
+  csv_data:
